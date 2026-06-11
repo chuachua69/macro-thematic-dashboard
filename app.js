@@ -1001,6 +1001,8 @@ window.addEventListener('resize', () => {
 });
 
 // 8. Slide-to-Update Component Logic
+const CURRENT_VERSION = "1.0.0";
+
 function initUpdateSlider() {
     const banner = document.getElementById('update-banner');
     const track = document.getElementById('update-slider-track');
@@ -1009,10 +1011,25 @@ function initUpdateSlider() {
     
     if (!banner || !track || !handle) return;
     
-    // Simulate an update arriving after 8 seconds of page load
-    setTimeout(() => {
-        banner.classList.add('show');
-    }, 8000);
+    // Live update check logic
+    const checkLiveUpdates = () => {
+        fetch('version.json?t=' + Date.now()) // Query param prevents browser cache
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.version && data.version !== CURRENT_VERSION) {
+                    const verText = banner.querySelector('.update-text span');
+                    if (verText) {
+                        verText.innerText = `Version v${data.version} is ready. Slide handle to apply.`;
+                    }
+                    banner.classList.add('show');
+                }
+            })
+            .catch(err => console.log('Error checking updates:', err));
+    };
+    
+    // Check for updates 5 seconds after load, and then every 30 seconds
+    setTimeout(checkLiveUpdates, 5000);
+    setInterval(checkLiveUpdates, 30000);
     
     let isDragging = false;
     let startX = 0;
