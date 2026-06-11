@@ -124,6 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
     renderLynchScreener();
     startNLPPipelineLoop();
     startSimulationLoops();
+    initUpdateSlider();
     
     // Render initial states
     updateMDPCalculations();
@@ -998,4 +999,107 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
+
+// 8. Slide-to-Update Component Logic
+function initUpdateSlider() {
+    const banner = document.getElementById('update-banner');
+    const track = document.getElementById('update-slider-track');
+    const handle = document.getElementById('update-slider-handle');
+    const text = track ? track.querySelector('.slider-track-text') : null;
+    
+    if (!banner || !track || !handle) return;
+    
+    // Simulate an update arriving after 8 seconds of page load
+    setTimeout(() => {
+        banner.classList.add('show');
+    }, 8000);
+    
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    
+    const getTrackWidth = () => track.getBoundingClientRect().width;
+    const handleWidth = 38;
+    const padding = 3;
+    
+    const getDragMax = () => getTrackWidth() - handleWidth - (padding * 2);
+    
+    const startDrag = (x) => {
+        isDragging = true;
+        startX = x - handle.offsetLeft;
+        handle.style.transition = 'none';
+    };
+    
+    const doDrag = (x) => {
+        if (!isDragging) return;
+        currentX = x - startX;
+        const maxDrag = getDragMax();
+        
+        // Constraint checks
+        if (currentX < padding) currentX = padding;
+        if (currentX > maxDrag) currentX = maxDrag;
+        
+        handle.style.left = currentX + 'px';
+        
+        // Fade out text as we drag
+        const progress = (currentX - padding) / (maxDrag - padding);
+        if (text) {
+            text.style.opacity = (1 - progress * 1.5).toString();
+        }
+    };
+    
+    const endDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const maxDrag = getDragMax();
+        const progress = (currentX - padding) / (maxDrag - padding);
+        
+        if (progress >= 0.82) {
+            // Success! Trigger reload to apply update
+            handle.style.transition = 'left 0.2s ease-out';
+            handle.style.left = maxDrag + 'px';
+            if (text) {
+                text.style.opacity = '0';
+                text.innerText = 'Updating...';
+            }
+            
+            // Neon cyan flash effect
+            handle.style.backgroundColor = '#ffffff';
+            banner.style.borderColor = '#10b981';
+            
+            setTimeout(() => {
+                window.location.reload(true);
+            }, 500);
+        } else {
+            // Snap back
+            handle.style.transition = 'left 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.2)';
+            handle.style.left = padding + 'px';
+            if (text) {
+                text.style.opacity = '0.7';
+            }
+        }
+    };
+    
+    // Mouse Listeners
+    handle.addEventListener('mousedown', (e) => startDrag(e.clientX));
+    window.addEventListener('mousemove', (e) => doDrag(e.clientX));
+    window.addEventListener('mouseup', endDrag);
+    
+    // Touch Listeners (Mobile support)
+    handle.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) {
+            startDrag(e.touches[0].clientX);
+        }
+    }, { passive: true });
+    
+    window.addEventListener('touchmove', (e) => {
+        if (isDragging && e.touches && e.touches[0]) {
+            doDrag(e.touches[0].clientX);
+        }
+    }, { passive: true });
+    
+    window.addEventListener('touchend', endDrag);
+}
+
 

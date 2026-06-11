@@ -1185,6 +1185,113 @@ svg .node:hover text, svg .node.active text {
     -webkit-overflow-scrolling: touch;
 }
 
+/* Slide-to-Update Alert Banner styling */
+.update-banner {
+    position: fixed;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 420px;
+    background-color: rgba(12, 20, 30, 0.95);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(6, 182, 212, 0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: top 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+
+.update-banner.show {
+    top: 20px;
+}
+
+.update-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.update-icon {
+    font-size: 2rem;
+    color: var(--cyan);
+    animation: bannerBounce 2s infinite;
+}
+
+.update-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.update-text strong {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.update-text span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Slide-to-Update Slider Track & Handle */
+.slider-track {
+    width: 100%;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+.slider-handle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--cyan);
+    color: var(--bg-base);
+    position: absolute;
+    left: 3px;
+    top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+    touch-action: none;
+    z-index: 10;
+}
+
+.slider-handle:active {
+    cursor: grabbing;
+    background-color: #ffffff;
+}
+
+.slider-track-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+@keyframes bannerBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
 /* Responsive constraints */
 @media (max-width: 768px) {
     .sidebar {
@@ -1207,7 +1314,9 @@ svg .node:hover text, svg .node.active text {
     }
     
     .mobile-logo-brand {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         margin-right: 0.75rem;
     }
     
@@ -1217,6 +1326,19 @@ svg .node:hover text, svg .node.active text {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         display: block;
+    }
+    
+    .mobile-badge {
+        font-size: 0.6rem;
+        font-family: var(--font-mono);
+        color: var(--cyan);
+        background: rgba(6, 182, 212, 0.1);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: normal;
     }
     
     .header-left h2 {

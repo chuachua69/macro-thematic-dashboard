@@ -21,6 +21,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Slide-to-Update Alert Banner -->
+    <div id="update-banner" class="update-banner">
+        <div class="update-content">
+            <span class="material-symbols-outlined update-icon">downloading</span>
+            <div class="update-text">
+                <strong>System Update Available</strong>
+                <span>Version v1.0.1 is ready. Slide handle to apply.</span>
+            </div>
+        </div>
+        <div class="slider-track" id="update-slider-track">
+            <div class="slider-handle" id="update-slider-handle">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </div>
+            <span class="slider-track-text">Slide to Update</span>
+        </div>
+    </div>
+
     <div class="app-layout">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
@@ -28,7 +45,7 @@
                 <span class="material-symbols-outlined logo-icon">insights</span>
                 <div class="brand-text">
                     <h1>MACRO-THEMATIC</h1>
-                    <span class="badge">Orchestrator v1.0</span>
+                    <span class="badge">Orchestrator v1.0.0</span>
                 </div>
             </div>
             
@@ -96,6 +113,7 @@
             <header class="app-header">
                 <div class="mobile-logo-brand">
                     <span class="material-symbols-outlined logo-icon">insights</span>
+                    <span class="badge mobile-badge">v1.0.0</span>
                 </div>
                 <div class="header-left">
                     <h2 id="view-title">System Dashboard</h2>
