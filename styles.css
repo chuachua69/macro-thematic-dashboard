@@ -672,6 +672,10 @@ input[type=range]::-webkit-slider-thumb:hover {
     width: 100%;
 }
 
+.svg-container.bipartite-container {
+    height: 420px;
+}
+
 svg {
     display: block;
     width: 100%;
@@ -713,14 +717,34 @@ svg .node:hover, svg .node.active {
 
 svg .node.investor rect {
     fill: var(--bg-surface-opaque);
-    stroke: var(--cyan);
-    stroke-width: 2px;
-    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.3));
+    stroke-width: 1.5px;
     transition: all 0.25s ease;
 }
 
-svg .node.investor:hover rect, svg .node.investor.active rect {
-    fill: rgba(6, 182, 212, 0.15);
+svg .node.investor.tier-1 rect {
+    stroke: var(--amber);
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.2));
+}
+svg .node.investor.tier-1:hover rect, svg .node.investor.tier-1.active rect {
+    fill: rgba(245, 158, 11, 0.12);
+    stroke: #ffffff;
+}
+
+svg .node.investor.tier-2 rect {
+    stroke: var(--cyan);
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.2));
+}
+svg .node.investor.tier-2:hover rect, svg .node.investor.tier-2.active rect {
+    fill: rgba(6, 182, 212, 0.12);
+    stroke: #ffffff;
+}
+
+svg .node.investor.tier-3 rect {
+    stroke: var(--violet);
+    filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.2));
+}
+svg .node.investor.tier-3:hover rect, svg .node.investor.tier-3.active rect {
+    fill: rgba(168, 85, 247, 0.12);
     stroke: #ffffff;
 }
 

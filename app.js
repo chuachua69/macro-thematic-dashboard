@@ -33,28 +33,88 @@ const state = {
 // SVG data assets
 const bipartiteGraphData = {
     managers: [
-        { id: 'appaloosa', name: 'Appaloosa L.P.', cik: '0001003007', centrality: '0.88', coeff: '0.42', y: 40, cap: '$8.4B' },
-        { id: 'duquesne', name: 'Duquesne Family Office', cik: '0001494530', centrality: '0.94', coeff: '0.38', y: 120, cap: '$3.2B' },
-        { id: 'soros', name: 'Soros Fund Mgmt', cik: '0001029160', centrality: '0.81', coeff: '0.49', y: 200, cap: '$6.5B' },
-        { id: 'elliott', name: 'Elliott Investment Mgmt', cik: '0001048477', centrality: '0.78', coeff: '0.31', y: 280, cap: '$14.2B' }
+        // Tier 1
+        { id: 'pershing', name: 'Pershing Square (Ackman)', cik: '0001336528', tier: 1, centrality: '0.68', coeff: '0.22', y: 20, cap: '$13.7B', note: 'High conviction bets (5-15% positions), builds positions over quarters, deep research-driven.' },
+        { id: 'thirdpoint', name: 'Third Point (Loeb)', cik: '0001040275', tier: 1, centrality: '0.74', coeff: '0.35', y: 55, cap: '$7.8B', note: 'High conviction activist bets, builds positions over quarters, deep research-driven.' },
+        { id: 'greenlight', name: 'Greenlight Capital (Einhorn)', cik: '0001079114', tier: 1, centrality: '0.62', coeff: '0.41', y: 90, cap: '$2.1B', note: 'Value/GARP focus, high conviction bets, builds positions over quarters.' },
+        { id: 'baupost', name: 'Baupost Group (Klarman)', cik: '0001061768', tier: 1, centrality: '0.70', coeff: '0.28', y: 125, cap: '$5.1B', note: 'Deep value/distressed assets, builds positions over quarters, high conviction.' },
+        { id: 'lonepine', name: 'Lone Pine (Mandel)', cik: '0001061165', tier: 1, centrality: '0.85', coeff: '0.44', y: 160, cap: '$11.2B', note: 'Deep research-driven equity, long-term holdings.' },
+        { id: 'tiger', name: 'Tiger Global Mgmt', cik: '0001167483', tier: 1, centrality: '0.92', coeff: '0.49', y: 195, cap: '$12.4B', note: 'Growth-focused, high conviction bets, builds positions over quarters.' },
+        
+        // Tier 2
+        { id: 'coatue', name: 'Coatue Mgmt', cik: '0001135769', tier: 2, centrality: '0.89', coeff: '0.46', y: 235, cap: '$18.5B', note: 'Early Signal Amplifier. Strong at spotting tech/AI trends early before traditional funds.' },
+        { id: 'altimeter', name: 'Altimeter Capital', cik: '0001476100', tier: 2, centrality: '0.82', coeff: '0.39', y: 270, cap: '$6.4B', note: 'Early Signal Amplifier. Tech/SaaS specialist, spots growth trends early.' },
+        { id: 'dragoneer', name: 'Dragoneer Inv Group', cik: '0001552520', tier: 2, centrality: '0.78', coeff: '0.31', y: 305, cap: '$8.2B', note: 'Early Signal Amplifier. Growth/SaaS focus, early trend spotting.' },
+        
+        // Tier 3
+        { id: 'capital', name: 'Capital Group', cik: '0001306443', tier: 3, centrality: '0.96', coeff: '0.55', y: 345, cap: '$2.1T', note: 'Validation Layer. Confirms trend moving from niche to mainstream. If they are already in, you might be late.' },
+        { id: 'fidelity', name: 'Fidelity Investments', cik: '0000315035', tier: 3, centrality: '0.98', coeff: '0.58', y: 380, cap: '$4.5T', note: 'Validation Layer. Large institutional volume, confirms mainstream trend adoption.' }
     ],
     equities: [
-        { id: 'asml', name: 'ASML Holding (ASML)', cusip: '00206R102', value: '$840M', sector: 'Semiconductors', y: 30 },
-        { id: 'tsm', name: 'TSMC (TSM)', cusip: '874039100', value: '$1.2B', sector: 'Semiconductors', y: 100 },
-        { id: 'gld', name: 'SPDR Gold Shares (GLD)', cusip: '78463V101', value: '$450M', sector: 'Precious Metals', y: 170 },
-        { id: 'nvda', name: 'NVIDIA Corp (NVDA)', cusip: '67066G104', value: '$1.8B', sector: 'AI Compute', y: 245 },
-        { id: 'eqt', name: 'EQT Resources (EQT)', cusip: '26884L109', value: '$310M', sector: 'Energy Infrastructure', y: 305 }
+        { id: 'amzn', name: 'Amazon (AMZN)', cusip: '023135106', value: '$2.8B', sector: 'E-Commerce/Cloud', y: 35 },
+        { id: 'msft', name: 'Microsoft (MSFT)', cusip: '594918104', value: '$3.4B', sector: 'AI/Cloud Software', y: 90 },
+        { id: 'uber', name: 'Uber (UBER)', cusip: '90353T100', value: '$1.4B', sector: 'Mobility/AI Logistics', y: 145 },
+        { id: 'nvda', name: 'NVIDIA (NVDA)', cusip: '67066G104', value: '$4.2B', sector: 'AI Compute Hardware', y: 200 },
+        { id: 'meta', name: 'Meta Platforms (META)', cusip: '30303M102', value: '$3.1B', sector: 'Social Media/AI', y: 255 },
+        { id: 'tsm', name: 'TSMC (TSM)', cusip: '874039100', value: '$1.8B', sector: 'Semiconductors', y: 310 },
+        { id: 'qsr', name: 'Restaurant Brands (QSR)', cusip: '76131D103', value: '$850M', sector: 'Consumer Discretionary', y: 365 }
     ],
     links: [
-        { manager: 'appaloosa', equity: 'tsm', val: 4 },
-        { manager: 'appaloosa', equity: 'nvda', val: 5 },
-        { manager: 'duquesne', equity: 'asml', val: 5 },
-        { manager: 'duquesne', equity: 'tsm', val: 3 },
-        { manager: 'duquesne', equity: 'gld', val: 2 },
-        { manager: 'soros', equity: 'gld', val: 4 },
-        { manager: 'soros', equity: 'eqt', val: 3 },
-        { manager: 'elliott', equity: 'nvda', val: 6 },
-        { manager: 'elliott', equity: 'eqt', val: 4 }
+        // Pershing (AMZN, QSR, MSFT, UBER)
+        { manager: 'pershing', equity: 'amzn', val: 5 },
+        { manager: 'pershing', equity: 'qsr', val: 6 },
+        { manager: 'pershing', equity: 'msft', val: 4 },
+        { manager: 'pershing', equity: 'uber', val: 3 },
+        
+        // Third Point (AMZN, MSFT, META)
+        { manager: 'thirdpoint', equity: 'amzn', val: 4 },
+        { manager: 'thirdpoint', equity: 'msft', val: 5 },
+        { manager: 'thirdpoint', equity: 'meta', val: 4 },
+        
+        // Greenlight (QSR)
+        { manager: 'greenlight', equity: 'qsr', val: 4 },
+        
+        // Baupost (AMZN, QSR)
+        { manager: 'baupost', equity: 'amzn', val: 5 },
+        { manager: 'baupost', equity: 'qsr', val: 5 },
+        
+        // Lone Pine (META, MSFT, AMZN, TSM)
+        { manager: 'lonepine', equity: 'meta', val: 5 },
+        { manager: 'lonepine', equity: 'msft', val: 4 },
+        { manager: 'lonepine', equity: 'amzn', val: 4 },
+        { manager: 'lonepine', equity: 'tsm', val: 5 },
+        
+        // Tiger Global (META, MSFT, AMZN, NVDA)
+        { manager: 'tiger', equity: 'meta', val: 6 },
+        { manager: 'tiger', equity: 'msft', val: 5 },
+        { manager: 'tiger', equity: 'amzn', val: 4 },
+        { manager: 'tiger', equity: 'nvda', val: 4 },
+        
+        // Coatue (NVDA, META, MSFT, AMZN, TSM)
+        { manager: 'coatue', equity: 'nvda', val: 6 },
+        { manager: 'coatue', equity: 'meta', val: 5 },
+        { manager: 'coatue', equity: 'msft', val: 4 },
+        { manager: 'coatue', equity: 'amzn', val: 4 },
+        { manager: 'coatue', equity: 'tsm', val: 5 },
+        
+        // Altimeter (META, NVDA, MSFT, UBER)
+        { manager: 'altimeter', equity: 'meta', val: 5 },
+        { manager: 'altimeter', equity: 'nvda', val: 6 },
+        { manager: 'altimeter', equity: 'msft', val: 4 },
+        { manager: 'altimeter', equity: 'uber', val: 4 },
+        
+        // Dragoneer (UBER)
+        { manager: 'dragoneer', equity: 'uber', val: 5 },
+        
+        // Capital Group (MSFT, NVDA, AMZN)
+        { manager: 'capital', equity: 'msft', val: 6 },
+        { manager: 'capital', equity: 'nvda', val: 5 },
+        { manager: 'capital', equity: 'amzn', val: 5 },
+        
+        // Fidelity (NVDA, MSFT, AMZN)
+        { manager: 'fidelity', equity: 'nvda', val: 6 },
+        { manager: 'fidelity', equity: 'msft', val: 5 },
+        { manager: 'fidelity', equity: 'amzn', val: 5 }
     ]
 };
 
@@ -403,10 +463,10 @@ function renderBipartiteNetwork() {
         
         if (mgrNode && eqNode) {
             const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            line.setAttribute('x1', '90');
-            line.setAttribute('y1', mgrNode.y + 15);
-            line.setAttribute('x2', '510');
-            line.setAttribute('y2', eqNode.y + 7);
+            line.setAttribute('x1', '145'); // 15 + 130 width
+            line.setAttribute('y1', mgrNode.y + 10); // Center of 20 height
+            line.setAttribute('x2', '460');
+            line.setAttribute('y2', eqNode.y);
             line.setAttribute('class', 'link');
             line.setAttribute('stroke-width', l.val);
             line.setAttribute('id', `link-${l.manager}-${l.equity}`);
@@ -417,18 +477,23 @@ function renderBipartiteNetwork() {
     // Draw Manager Nodes (Left side, Squares)
     bipartiteGraphData.managers.forEach(m => {
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        g.setAttribute('class', 'node investor');
+        let tierClass = 'tier-1';
+        if (m.tier === 2) tierClass = 'tier-2';
+        if (m.tier === 3) tierClass = 'tier-3';
+        
+        g.setAttribute('class', `node investor ${tierClass}`);
         g.setAttribute('transform', `translate(15, ${m.y})`);
         
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('width', '75');
-        rect.setAttribute('height', '30');
+        rect.setAttribute('width', '130');
+        rect.setAttribute('height', '20');
         rect.setAttribute('rx', '4');
         
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', '8');
-        text.setAttribute('y', '18');
-        text.textContent = m.name.substring(0, 11) + '...';
+        text.setAttribute('x', '6');
+        text.setAttribute('y', '13');
+        text.style.fontSize = '8.5px';
+        text.textContent = m.name;
         
         g.appendChild(rect);
         g.appendChild(text);
@@ -436,7 +501,13 @@ function renderBipartiteNetwork() {
         // Hover events
         g.addEventListener('mouseenter', () => {
             highlightLinks(m.id, 'manager');
-            infoPanel.innerHTML = `<strong>Manager Node: ${m.name}</strong> | CIK: ${m.cik} | Centrality Score: ${m.centrality} | Clustering Coeff: ${m.coeff} | AUM: ${m.cap}`;
+            let tierLabel = 'Tier 1 (High Conviction)';
+            if (m.tier === 2) tierLabel = 'Tier 2 (Early Signal)';
+            if (m.tier === 3) tierLabel = 'Tier 3 (Validation Layer)';
+            
+            infoPanel.innerHTML = `<strong>${m.name} (${tierLabel})</strong><br/>
+            CIK: ${m.cik} | Centrality: ${m.centrality} | AUM: ${m.cap}<br/>
+            <span class="text-zinc-400 font-sans text-xs">"${m.note}"</span>`;
         });
         
         g.addEventListener('mouseleave', () => {
@@ -451,16 +522,16 @@ function renderBipartiteNetwork() {
     bipartiteGraphData.equities.forEach(e => {
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         g.setAttribute('class', 'node equity');
-        g.setAttribute('transform', `translate(510, ${e.y})`);
+        g.setAttribute('transform', `translate(460, ${e.y})`);
         
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('cx', '8');
-        circle.setAttribute('cy', '8');
-        circle.setAttribute('r', '8');
+        circle.setAttribute('cx', '0');
+        circle.setAttribute('cy', '0');
+        circle.setAttribute('r', '6');
         
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', '-110');
-        text.setAttribute('y', '12');
+        text.setAttribute('x', '12');
+        text.setAttribute('y', '3');
         text.setAttribute('text-anchor', 'start');
         text.textContent = e.name;
         
@@ -470,7 +541,36 @@ function renderBipartiteNetwork() {
         // Hover events
         g.addEventListener('mouseenter', () => {
             highlightLinks(e.id, 'equity');
-            infoPanel.innerHTML = `<strong>Equity Node: ${e.name}</strong> | CUSIP: ${e.cusip} | Net Manager Position Value: ${e.value} | Sector: ${e.sector}`;
+            
+            // Calculate backers
+            const backers = bipartiteGraphData.links.filter(l => l.equity === e.id);
+            const t1 = backers.filter(l => {
+                const m = bipartiteGraphData.managers.find(mgr => mgr.id === l.manager);
+                return m && m.tier === 1;
+            }).map(l => bipartiteGraphData.managers.find(mgr => mgr.id === l.manager).name.split(' (')[0]).join(', ');
+            
+            const t2 = backers.filter(l => {
+                const m = bipartiteGraphData.managers.find(mgr => mgr.id === l.manager);
+                return m && m.tier === 2;
+            }).map(l => bipartiteGraphData.managers.find(mgr => mgr.id === l.manager).name.split(' (')[0]).join(', ');
+            
+            const t3 = backers.filter(l => {
+                const m = bipartiteGraphData.managers.find(mgr => mgr.id === l.manager);
+                return m && m.tier === 3;
+            }).map(l => bipartiteGraphData.managers.find(mgr => mgr.id === l.manager).name.split(' (')[0]).join(', ');
+            
+            let rotationStatus = '<span class="text-emerald">Alpha Setup (Clean positioning)</span>';
+            if (t3.length > 0 && t1.length === 0) {
+                rotationStatus = '<span class="text-rose">Crowded / Late Entry (Tier 3 present, Tier 1 absent)</span>';
+            } else if (t1.length > 0 && t3.length === 0) {
+                rotationStatus = '<span class="text-cyan">High Conviction Core (Tier 1 backed, mainstream not in yet)</span>';
+            } else if (t2.length > 0 && t3.length === 0) {
+                rotationStatus = '<span class="text-amber">Early Signal (Tier 2 active, mainstream not in yet)</span>';
+            }
+            
+            infoPanel.innerHTML = `<strong>Equity: ${e.name}</strong> | CUSIP: ${e.cusip} | Net Value: ${e.value}<br/>
+            <strong>T1:</strong> ${t1 || 'None'} | <strong>T2:</strong> ${t2 || 'None'} | <strong>T3:</strong> ${t3 || 'None'}<br/>
+            <strong>Signal:</strong> ${rotationStatus}`;
         });
         
         g.addEventListener('mouseleave', () => {
