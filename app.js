@@ -138,6 +138,7 @@ function initRouter() {
         // Remove active class from all panels and nav items
         document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
         
         // Active panel and nav link
         const targetPanel = document.getElementById(targetViewId);
@@ -148,6 +149,11 @@ function initRouter() {
         const targetNav = document.getElementById('nav-' + hash.substring(1));
         if (targetNav) {
             targetNav.classList.add('active');
+        }
+        
+        const targetBottomNav = document.getElementById('bottom-nav-' + hash.substring(1));
+        if (targetBottomNav) {
+            targetBottomNav.classList.add('active');
         }
         
         // Update header details
@@ -646,6 +652,13 @@ function initBacktestChart() {
     const canvas = document.getElementById('backtest-canvas');
     if (!canvas) return;
     
+    const wrapper = canvas.parentElement;
+    const rect = wrapper.getBoundingClientRect();
+    
+    // Set internal canvas resolution to match parent container width
+    canvas.width = rect.width;
+    canvas.height = rect.height || 240; // Default to 240 if height is 0
+    
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;
@@ -974,3 +987,15 @@ function startSimulationLoops() {
         });
     }, 4500);
 }
+
+// Add window resize listener to redraw backtest chart responsively
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (state.currentView === 'backtest') {
+            initBacktestChart();
+        }
+    }, 250);
+});
+
