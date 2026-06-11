@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro-Thematic Investing | Multi-Agent Orchestrator MVP</title>
+    
+    <!-- SEO and Meta Tags -->
+    <meta name="description" content="A high-performance simulated dashboard for multi-agent macro-thematic investing, featuring systemic liquidity analysis, 13F bipartite networks, supply chain traversal, and FINSABER backtesting.">
+    <meta name="author" content="Antigravity Architect">
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols for Modern Iconography -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- Core Design Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="material-symbols-outlined logo-icon">insights</span>
+                <div class="brand-text">
+                    <h1>MACRO-THEMATIC</h1>
+                    <span class="badge">Orchestrator v1.0</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" id="nav-dashboard">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>System Dashboard</span>
+                </a>
+                <a href="#agents" class="nav-item" id="nav-agents">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                    <span>Cognitive Agents</span>
+                </a>
+                <a href="#supply-chain" class="nav-item" id="nav-supply-chain">
+                    <span class="material-symbols-outlined">hub</span>
+                    <span>Supply Chain Traversal</span>
+                </a>
+                <a href="#backtest" class="nav-item" id="nav-backtest">
+                    <span class="material-symbols-outlined">timeline</span>
+                    <span>FINSABER Backtesting</span>
+                </a>
+                <a href="#pilot" class="nav-item" id="nav-pilot">
+                    <span class="material-symbols-outlined">send_and_archive</span>
+                    <span>Pilot Trader</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="connection-status">
+                    <span class="status-dot online"></span>
+                    <span>Systemic Engine Active</span>
+                </div>
+                <div class="provenance-contract">
+                    <span class="lbl">Provenance Hash:</span>
+                    <span class="val" id="provenance-hash">0x8f2d...4a9e</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="app-header">
+                <div class="header-left">
+                    <h2 id="view-title">System Dashboard</h2>
+                    <p id="view-description">Global macro liquidity vector metrics & adaptive policy rules.</p>
+                </div>
+                <div class="header-right">
+                    <div class="quick-stat">
+                        <span class="lbl">Active Agents</span>
+                        <span class="val">5 / 5</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="lbl">MDP State</span>
+                        <span class="val text-emerald" id="mdp-regime-status">Liquidity Expansion</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-viewport">
+                <!-- VIEW 1: DASHBOARD -->
+                <section id="view-dashboard" class="view-panel active">
+                    <div class="grid-layout cols-3">
+                        <!-- Simulation Controller -->
+                        <div class="card col-span-2 highlight-card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-cyan">tune</span>
+                                <h3>Systemic Liquidity Simulator</h3>
+                                <span class="badge badge-accent">Live Controls</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-lead">Adjust the global macroeconomic sliders below to simulate policy shifts. Watch how the unified Markov Decision Process (MDP) scales portfolio risks and targets in real time.</p>
+                                
+                                <div class="simulator-sliders">
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="lbl">Central Bank Balance Sheet Expansion (&Delta;CB<sub>t</sub>)</span>
+                                            <span class="val" id="val-cb-expansion">+4.2% / wk</span>
+                                        </div>
+                                        <input type="range" id="slider-cb-expansion" min="-10" max="10" step="0.5" value="4.2">
+                                        <span class="slider-desc">Dictates the supply of bank reserves. High positive values signal monetary expansion.</span>
+                                    </div>
+                                    
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="lbl">Repo Rate Sensitivity Spread (&sigma;<sub>repo</sub>)</span>
+                                            <span class="val text-emerald" id="val-repo-spread">0.12 bps</span>
+                                        </div>
+                                        <input type="range" id="slider-repo-spread" min="0" max="5.0" step="0.05" value="0.12">
+                                        <span class="slider-desc">Measures interbank reserve scarcity. Spikes indicate severe balance sheet pressure.</span>
+                                    </div>
+                                    
+                                    <div class="slider-group">
+                                        <div class="slider-header">
+                                            <span class="lbl">Sovereign Yield Curve Velocity (&Delta;Y<sub>10Y-2Y</sub>)</span>
+                                            <span class="val" id="val-yield-velocity">+0.15 bps/m</span>
+                                        </div>
+                                        <input type="range" id="slider-yield-velocity" min="-2.0" max="2.0" step="0.02" value="0.15">
+                                        <span class="slider-desc">Slope changes in the 10Y minus 2Y government bonds, indicating inflation & credit shifts.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MDP Reward Engine & Weights -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-violet">functions</span>
+                                <h3>MDP Policy Weights</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="math-formula">
+                                    <code>R<sub>t</sub> = &Delta;V<sub>t</sub> - &lambda;<sub>f</sub> &middot; F<sub>t</sub> - &gamma;<sub>t</sub> &middot; D<sub>30</sub></code>
+                                </div>
+                                <div class="weight-metrics">
+                                    <div class="metric-row">
+                                        <span class="lbl">Friction Cost Penalty (&lambda;<sub>f</sub>)</span>
+                                        <span class="val" id="metric-lambda-f">0.050</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="lbl">Risk-Aversion Weight (&gamma;<sub>t</sub>)</span>
+                                        <span class="val text-cyan" id="metric-gamma-t">0.250</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="lbl">Max Target Beta (Equity)</span>
+                                        <span class="val" id="metric-max-beta">1.20</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="lbl">Max Leverage Allowed</span>
+                                        <span class="val text-emerald" id="metric-max-leverage">1.50x</span>
+                                    </div>
+                                </div>
+                                <div class="policy-indicator-box" id="policy-box">
+                                    <span class="material-symbols-outlined text-emerald" id="policy-icon">trending_up</span>
+                                    <div class="policy-desc">
+                                        <strong id="policy-title">EXPANSIVE REGIME ACTIVE</strong>
+                                        <p id="policy-text">Leverage caps are expanded. System risk-aversion penalty minimized to capture beta equity gains.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Macro transmission pathways & allocation -->
+                    <div class="grid-layout cols-3 mt-6">
+                        <div class="card col-span-2">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-emerald">pie_chart</span>
+                                <h3>Target Asset Allocations</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="allocation-chart-container">
+                                    <!-- Dynamic allocation bars -->
+                                    <div class="alloc-bar-wrapper">
+                                        <div class="alloc-labels">
+                                            <span>Equities (High Beta / Tech)</span>
+                                            <span class="alloc-val" id="alloc-val-equities">55%</span>
+                                        </div>
+                                        <div class="alloc-progress">
+                                            <div class="progress-fill bg-cyan" id="alloc-fill-equities" style="width: 55%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="alloc-bar-wrapper">
+                                        <div class="alloc-labels">
+                                            <span>Macro Commodities (Gold, Oil)</span>
+                                            <span class="alloc-val" id="alloc-val-commodities">25%</span>
+                                        </div>
+                                        <div class="alloc-progress">
+                                            <div class="progress-fill bg-violet" id="alloc-fill-commodities" style="width: 25%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="alloc-bar-wrapper">
+                                        <div class="alloc-labels">
+                                            <span>Sovereign Fixed Income / Cash</span>
+                                            <span class="alloc-val" id="alloc-val-cash">20%</span>
+                                        </div>
+                                        <div class="alloc-progress">
+                                            <div class="progress-fill bg-emerald" id="alloc-fill-cash" style="width: 20%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-amber">notifications_active</span>
+                                <h3>Liquidity Warning Radar</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="alert-list" id="radar-alert-list">
+                                    <li class="alert-item ok">
+                                        <span class="material-symbols-outlined icon">check_circle</span>
+                                        <div class="alert-content">
+                                            <strong>Central Bank reserves stable</strong>
+                                            <span>Weekly expansion above +3% threshold.</span>
+                                        </div>
+                                    </li>
+                                    <li class="alert-item ok">
+                                        <span class="material-symbols-outlined icon">check_circle</span>
+                                        <div class="alert-content">
+                                            <strong>Interbank spread minimal</strong>
+                                            <span>Repo spread below risk ceiling of 1.0 bps.</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: COGNITIVE AGENTS -->
+                <section id="view-agents" class="view-panel">
+                    <div class="tabs-navigation">
+                        <button class="tab-btn active" onclick="switchAgentTab('flow')">Institutional Flow Agent</button>
+                        <button class="tab-btn" onclick="switchAgentTab('fundamental')">Fundamental Analyst Agent</button>
+                    </div>
+
+                    <!-- AGENT SUBVIEW A: INSTITUTIONAL FLOW -->
+                    <div id="agent-tab-flow" class="agent-tab-content active">
+                        <div class="grid-layout cols-3">
+                            <div class="card col-span-2">
+                                <div class="card-header">
+                                    <span class="material-symbols-outlined header-icon text-cyan">share</span>
+                                    <h3>SEC 13F-HR Bipartite Network</h3>
+                                    <span class="badge">Interactive Topology</span>
+                                </div>
+                                <div class="card-body network-visualizer-container">
+                                    <p class="card-lead">Showing clustered bipartite relationships between <strong>Institutional Managers (Squares)</strong> and <strong>Equities (Circles)</strong>. Connecting edge widths represent position values in millions.</p>
+                                    
+                                    <div class="svg-container">
+                                        <svg id="bipartite-svg" viewBox="0 0 600 320" width="100%" height="100%">
+                                            <!-- SVG elements will be injected here dynamically -->
+                                        </svg>
+                                    </div>
+                                    <div id="node-info-panel" class="node-hover-info">
+                                        Hover over a node to analyze positioning metrics.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="material-symbols-outlined header-icon text-amber">terminal</span>
+                                    <h3>XML Ingest & Parse Stream</h3>
+                                </div>
+                                <div class="card-body font-mono text-xs">
+                                    <div class="xml-stream-logs" id="xml-stream-logs">
+                                        <span class="log-line text-cyan">[INIT] Requesting SEC EDGAR Form 13F-HR logs...</span>
+                                        <span class="log-line text-cyan">[INIT] Identity verified: institutional_architect@quantfirm.com</span>
+                                        <span class="log-line">[FETCH] Resolved CIK: 0001003007 (Appaloosa Management L.P.)</span>
+                                        <span class="log-line">[XML] Ingesting SGML filing wrapper...</span>
+                                        <span class="log-line text-emerald">[XML] Isolated infotable.xml attachment (1.42 MB)</span>
+                                        <span class="log-line">[PARSE] Streaming nodes using XPath...</span>
+                                        <span class="log-line text-emerald">[PARSE] Parsed 241 nodes in 12.8ms (C-level direct)</span>
+                                        <span class="log-line">[VECTOR] Downcasted to float32 & category types.</span>
+                                        <span class="log-line">[OK] Consolidated duplicate positions by CUSIP.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AGENT SUBVIEW B: FUNDAMENTAL ANALYST -->
+                    <div id="agent-tab-fundamental" class="agent-tab-content">
+                        <div class="grid-layout cols-3">
+                            <!-- Peter Lynch Score Card -->
+                            <div class="card col-span-2">
+                                <div class="card-header">
+                                    <span class="material-symbols-outlined header-icon text-violet">workspace_premium</span>
+                                    <h3>Peter Lynch GARP Screener</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Ticker</th>
+                                                <th>P/E Ratio</th>
+                                                <th>PEG Ratio</th>
+                                                <th>Lynch 20 Rule</th>
+                                                <th>Debt/Equity</th>
+                                                <th>Lynch Score</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="lynch-screener-body">
+                                            <!-- Injected dynamically -->
+                                        </tbody>
+                                    </table>
+                                    
+                                    <div class="math-formula mt-4">
+                                        <code>I<sub>GARP</sub> = &sum; [ (PEG &le; 1.2) + (PE + Inf &le; 20) + (D/E &le; 0.4) + (Cash &gt; 0) ] &ge; 3</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 10-K Semantic Risk Extraction -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="material-symbols-outlined header-icon text-cyan">psychology</span>
+                                    <h3>10-K NLP Risk Pipeline</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="nlp-steps">
+                                        <div class="nlp-step active" id="nlp-step-1">
+                                            <div class="step-num">1</div>
+                                            <div class="step-label">Stage 1: LLM Quote Extraction</div>
+                                            <p class="step-desc">Scan Item 1A for material, verbatim supply chain bottleneck statements.</p>
+                                        </div>
+                                        <div class="nlp-step" id="nlp-step-2">
+                                            <div class="step-num">2</div>
+                                            <div class="step-label">Stage 2: Taxonomy Vector Map</div>
+                                            <p class="step-desc">Perform nearest-neighbor mapping of quote vectors to 3-tier risk taxonomy.</p>
+                                        </div>
+                                        <div class="nlp-step" id="nlp-step-3">
+                                            <div class="step-num">3</div>
+                                            <div class="step-label">Stage 3: LLM Judge Validator</div>
+                                            <p class="step-desc">Validate semantic alignment score. Reject boilerplate boilerplate claims.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="nlp-quote-box mt-4">
+                                        <div class="lbl">Validated NLP Assertion:</div>
+                                        <div class="quote" id="nlp-assert-quote">"Our manufacturing lines face raw material delivery limits due to global optoelectronic component backlogs..."</div>
+                                        <div class="tax" id="nlp-assert-tax">Taxonomy Match: <strong>Supply Chain Bottleneck &rarr; Component Delay</strong></div>
+                                        <div class="score" id="nlp-assert-score">Judge Conf. Score: <strong>0.96 / 1.0</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 3: SUPPLY CHAIN -->
+                <section id="view-supply-chain" class="view-panel">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-violet">mediation</span>
+                                <h3>Supply Chain Knowledge Graph (Quintuplets)</h3>
+                                <span class="badge badge-accent">Bottleneck Traversal</span>
+                            </div>
+                            <div class="card-body network-visualizer-container">
+                                <p class="card-lead">Tracing relationships to find upstream bottleneck beneficiaries. Click a node to reveal dependencies.</p>
+                                
+                                <div class="svg-container">
+                                    <svg id="supply-chain-svg" viewBox="0 0 600 320" width="100%" height="100%">
+                                        <!-- Injected dynamically -->
+                                    </svg>
+                                </div>
+                                <div id="sc-node-info" class="node-hover-info">
+                                    Hover/click on nodes to traverse relational links.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Secondary Winner Analysis Card -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-emerald">key</span>
+                                <h3>Secondary Beneficiary Analysis</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="bottleneck-summary-box">
+                                    <h4 class="text-violet">Identified Asymmetric Setup:</h4>
+                                    <ul class="bottleneck-path">
+                                        <li><strong>AI Hardware Boom</strong> (Primary Theme)</li>
+                                        <li>&darr; requires</li>
+                                        <li><strong>Advanced Lithography Tools</strong> (Bottleneck node)</li>
+                                        <li>&darr; monopolized by</li>
+                                        <li><strong>ASML Holding N.V.</strong> (Asymmetric Winner)</li>
+                                    </ul>
+                                </div>
+                                
+                                <h4 class="mt-4">Quintuplet Details:</h4>
+                                <div class="quintuplet-card">
+                                    <div class="q-row"><strong>Subject:</strong> <span>TSMC (TSM)</span></div>
+                                    <div class="q-row"><strong>Relation:</strong> <span>DEPENDS_ON</span></div>
+                                    <div class="q-row"><strong>Object:</strong> <span>ASML Holding (ASML)</span></div>
+                                    <div class="q-row"><strong>Context:</strong> <span>EUV Lithography Systems</span></div>
+                                    <div class="q-row"><strong>Revenue Exp:</strong> <span>&gt; 15% (Systemic)</span></div>
+                                    <div class="q-row"><strong>Confidence:</strong> <span class="text-emerald">0.94 (Cross-Filing Checked)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 4: BACKTEST -->
+                <section id="view-backtest" class="view-panel">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-cyan">show_chart</span>
+                                <h3>FINSABER Backtesting Sandbox</h3>
+                                <span class="badge">10-Year Simulation</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-lead">Backtest from 2016-2026 showing the **Macro-Thematic Strategy** vs the **S&P 500**. Features 45-day look-ahead delay lag and survivorship bias filters.</p>
+                                
+                                <div class="chart-wrapper">
+                                    <canvas id="backtest-canvas" width="600" height="240"></canvas>
+                                </div>
+                                
+                                <div class="backtest-performance-summary">
+                                    <div class="perf-metric">
+                                        <span class="lbl">Total Return (Strategy)</span>
+                                        <span class="val text-emerald">+412.5%</span>
+                                    </div>
+                                    <div class="perf-metric">
+                                        <span class="lbl">Total Return (S&P 500)</span>
+                                        <span class="val">+164.2%</span>
+                                    </div>
+                                    <div class="perf-metric">
+                                        <span class="lbl">Max Drawdown</span>
+                                        <span class="val text-cyan">-14.8%</span>
+                                    </div>
+                                    <div class="perf-metric">
+                                        <span class="lbl">Sharpe Ratio</span>
+                                        <span class="val">2.35</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Compliance Guardrails -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-amber">gavel</span>
+                                <h3>Deterministic Compliance Guardrails</h3>
+                            </div>
+                            <div class="card-body font-mono text-xs">
+                                <div class="compliance-logs" id="compliance-logs">
+                                    <span class="log-line text-cyan">[INIT] FINSABER Guardrails online.</span>
+                                    <span class="log-line">[FILTER] Checking 45-day look-ahead disclosure lag...</span>
+                                    <span class="log-line text-emerald">[OK] SEC 13F trade dates delayed by exactly 45 days.</span>
+                                    <span class="log-line">[FILTER] Checking Sector Cap constraints (Limit: 20%)...</span>
+                                    <span class="log-line text-amber">[WARN] AI Compute sector allocation reached 19.8%. Scaling back next trade.</span>
+                                    <span class="log-line text-rose">[REJECT] Buy recommendation for XYZ Inc: liquidity profile below volume threshold.</span>
+                                    <span class="log-line text-emerald">[PASS] TSMC (TSM) allocation check cleared.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 5: PILOT TRADING -->
+                <section id="view-pilot" class="view-panel">
+                    <div class="grid-layout cols-3">
+                        <div class="card col-span-2">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-emerald">bolt</span>
+                                <h3>Exploratory Sizing Console</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-lead">Rather than deploying full positions immediately, initiate an **Exploratory Pilot Trade** to gather live market feedback. Scale up if the thesis is validated, or exit immediately if conditions deteriorate.</p>
+                                
+                                <div class="pilot-actions">
+                                    <div class="form-group-inline">
+                                        <label for="pilot-ticker">Select Ticker:</label>
+                                        <select id="pilot-ticker">
+                                            <option value="ASML">ASML Holding N.V. (ASML)</option>
+                                            <option value="TSM">TSMC (TSM)</option>
+                                            <option value="GOLD">SPDR Gold Shares (GLD)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary" onclick="launchPilotTrade()">Deploy Pilot Trade (0.5% NAV)</button>
+                                </div>
+
+                                <div class="active-pilots-list mt-6">
+                                    <h4>Active Pilot Positions</h4>
+                                    <table class="data-table mt-2">
+                                        <thead>
+                                            <tr>
+                                                <th>Ticker</th>
+                                                <th>Pilot Entry Size</th>
+                                                <th>Allocated Value</th>
+                                                <th>Price Momentum</th>
+                                                <th>Thesis Validation</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pilot-positions-body">
+                                            <!-- Dynamically filled -->
+                                            <tr id="empty-pilot-row">
+                                                <td colspan="6" class="text-center text-zinc-500">No active pilot trades. Deploy one above to start the feedback loop.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pilot Execution Logs -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined header-icon text-cyan">history</span>
+                                <h3>Execution Log Stream</h3>
+                            </div>
+                            <div class="card-body font-mono text-xs">
+                                <div class="pilot-stream-logs" id="pilot-stream-logs">
+                                    <span class="log-line text-zinc-500">// Execution logs will appear here upon launching pilot trades...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
