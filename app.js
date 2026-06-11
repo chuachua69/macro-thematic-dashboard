@@ -23,6 +23,9 @@ const state = {
     // Active View
     currentView: 'dashboard',
     
+    // Live SEC mode
+    liveDataMode: false,
+    
     // NLP 10-K pipeline step
     nlpStep: 1,
     
@@ -1217,6 +1220,47 @@ function initUpdateSlider() {
     }, { passive: true });
     
     window.addEventListener('touchend', endDrag);
+}
+
+// 9. Live SEC Data Toggle & Logging
+function toggleLiveDataMode() {
+    state.liveDataMode = !state.liveDataMode;
+    const btn = document.getElementById('btn-live-toggle');
+    if (!btn) return;
+    
+    if (state.liveDataMode) {
+        btn.className = 'btn btn-action btn-success';
+        btn.innerText = 'Live SEC: ON';
+        addXMLLog('[LIVE] Live SEC Mode Activated. Hover over managers to query serverless EDGAR API proxy.');
+    } else {
+        btn.className = 'btn btn-action btn-danger';
+        btn.innerText = 'Live SEC: OFF';
+        addXMLLog('[LIVE] Live SEC Mode Deactivated. Reset to curated Q1 database.');
+    }
+}
+
+function addXMLLog(msg) {
+    const logsEl = document.getElementById('xml-stream-logs');
+    if (!logsEl) return;
+    
+    const span = document.createElement('span');
+    span.className = 'log-line';
+    
+    if (msg.includes('[LIVE]') || msg.includes('[FETCH]')) {
+        span.className += ' text-cyan';
+    } else if (msg.includes('[SUCCESS]') || msg.includes('[OK]')) {
+        span.className += ' text-emerald';
+    } else if (msg.includes('[FAIL]') || msg.includes('[ERROR]')) {
+        span.className += ' text-rose';
+    }
+    
+    span.innerText = msg;
+    logsEl.appendChild(span);
+    
+    if (logsEl.children.length > 30) {
+        logsEl.removeChild(logsEl.firstChild);
+    }
+    logsEl.scrollTop = logsEl.scrollHeight;
 }
 
 
